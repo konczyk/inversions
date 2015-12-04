@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import sys
 
 class Inversions:
     def __init__(self, items):
@@ -26,8 +27,9 @@ class Inversions:
 
         ret = []
         i, j = 0, 0
+        ilen, jlen = len(left), len(right)
 
-        while i < len(left) and j < len(right):
+        while i < ilen and j < jlen:
             if left[i] <= right[j]:
                 ret.append(left[i])
                 i += 1
@@ -38,10 +40,17 @@ class Inversions:
                 self.inversions += len(left[i:])
                 j += 1
 
-        if i < len(left):
+        if i < ilen:
             ret.extend(left[i:])
 
-        if j < len(right):
+        if j < jlen:
             ret.extend(right[j:])
 
         return ret
+
+if __name__ == '__main__':
+    items = []
+    for num in sys.stdin:
+        items.append(int(num))
+    inv = Inversions(items)
+    print(inv.count())
