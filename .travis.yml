@@ -3,4 +3,4 @@ python:
     - 3.2
     - 3.3
     - 3.4
-script: test_inversions.py
+script: python test_inversions.py
