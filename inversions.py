@@ -2,19 +2,34 @@
 import sys
 
 class Inversions:
+    """
+    Merge sort implementation with inversions counting
+    """
+
     def __init__(self, items):
-        self.items = items[:]
-        self.inversions = 0
+        """
+        Copy the list of items and set inversions to 0
+        """
 
-    # return the number of inversions
-    # in the input array
+        self._items = items[:]
+        self._inversions = 0
+
     def count(self):
-        left, right = 0, len(self.items) - 1
-        self.__mergesort(left, right)
+        """
+        Count the number of inversions using merge sort and
+        return the result
+        """
 
-        return self.inversions
+        left, right = 0, len(self._items) - 1
+        self._sort(left, right)
 
-    def __mergesort(self, left, right):
+        return self._inversions
+
+    def _sort(self, left, right):
+        """
+        Sort the array by recursive split using the passed boundaries
+        """
+
         # base case
         if right <= left:
             return
@@ -22,13 +37,16 @@ class Inversions:
         mid = (left + right) // 2
 
         # recursive calls
-        self.__mergesort(left, mid)
-        self.__mergesort(mid + 1, right)
+        self._sort(left, mid)
+        self._sort(mid + 1, right)
 
-        # merge sublists
-        self.__merge(left, mid, right)
+        # merge step
+        self._merge(left, mid, right)
 
-    def __merge(self, left, mid, right):
+    def _merge(self, left, mid, right):
+        """
+        Merge subarrays indicated by the passed boundaries
+        """
 
         # temp storage for sorted sublist
         tmp = []
@@ -37,14 +55,14 @@ class Inversions:
 
         # classic sort traversal
         while i <= mid and j <= right:
-            if self.items[i] <= self.items[j]:
-                tmp.append(self.items[i])
+            if self._items[i] <= self._items[j]:
+                tmp.append(self._items[i])
                 i += 1
             else:
-                tmp.append(self.items[j])
+                tmp.append(self._items[j])
                 # bump inversion count by the amount of items
                 # left in the left sublist
-                self.inversions += (mid - i + 1)
+                self._inversions += (mid - i + 1)
                 j += 1
 
         # shift left leftovers to the right,
@@ -53,14 +71,14 @@ class Inversions:
             last_item = mid
             move_to = right
             while last_item >= i:
-                self.items[move_to] = self.items[last_item]
+                self._items[move_to] = self._items[last_item]
                 move_to -= 1
                 last_item -= 1
 
         # update items with sorted values
         idx = left
         for item in tmp:
-            self.items[idx] = item
+            self._items[idx] = item
             idx += 1
 
 if __name__ == '__main__':
