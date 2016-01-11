@@ -10,5 +10,4 @@ args = parser.parse_args()
 
 nums = list(range(args.nums))
 random.shuffle(nums)
-for num in nums:
-    print(num + 1)
+print("\n".join(map(str, nums)))
