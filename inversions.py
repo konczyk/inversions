@@ -13,7 +13,7 @@ class Inversions:
         Set default threshold to switch to insertion sort
         """
 
-        self._items = items[:]
+        self._items = list(items)
         self._tmp = [0] * len(self._items)
         self._inversions = 0
         self._threshold = threshold
@@ -71,7 +71,7 @@ class Inversions:
                 self._items[k] = self._tmp[j]
                 j += 1
                 # bump inversions counter by the number of items
-                # still not merged from the left array
+                # still not merged from the left subarray
                 self._inversions += (mid - i + 1)
             else:
                 self._items[k] = self._tmp[i]
@@ -88,16 +88,12 @@ class Inversions:
         while i <= right:
             j = i
             while j > left and self._items[j] < self._items[j-1]:
+                # swap items
                 self._items[j-1], self._items[j] = self._items[j], self._items[j-1]
-                # bump inversions counter
                 self._inversions += 1
                 j -= 1
             i += 1
 
 if __name__ == '__main__':
-    items = []
-    for num in sys.stdin:
-        items.append(int(num))
-    inv = Inversions(items)
-    del items
+    inv = Inversions([int(num) for num in sys.stdin])
     print(inv.count())
