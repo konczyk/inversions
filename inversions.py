@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import sys
+
 
 class Inversions:
     """
@@ -93,7 +93,3 @@ class Inversions:
                 self._inversions += 1
                 j -= 1
             i += 1
-
-if __name__ == '__main__':
-    inv = Inversions([int(num) for num in sys.stdin])
-    print(inv.count())
